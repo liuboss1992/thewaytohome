@@ -5,7 +5,7 @@
 
 ## jd_spider.py
 
-监视[京东旅行：机票](https://jipiao.jd.com/)
+监视[京东旅行-机票](https://jipiao.jd.com/)
 
 **使用方法**
 
