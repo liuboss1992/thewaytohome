@@ -3,7 +3,8 @@
 import requests
 import time
 
-def jd_spider_flights():
+
+def jd_spider_flights(depcity,arrcity,date,price):
 
 
     headers = {
@@ -19,26 +20,38 @@ def jd_spider_flights():
 
     roon_session = requests.session()
 
-    payload = {'depCity': '烟台', 'arrCity': '合肥', 'depDate': '2019-01-02', 'arrDate': '2019-01-02', 'queryModule': '1',
+    payload = {'depCity': depcity, 'arrCity': arrcity, 'depDate': date, 'arrDate': date, 'queryModule': '1',
                'lineType': 'OW', 'queryType': 'jipiaoindexquery'}
 
     url = 'https://jipiao.jd.com/search/queryFlight.action'
-
     for i in range(10):
+        text = ''
+        flag = 0
         page = roon_session.get(url,headers=headers, params=payload).json()
         if not page['data']['flights'] is None:
-        	break
+            print('Found!')
+            text = date + ','+depcity + '->' + arrcity + ',价格低于' + str(price) + ': \n'
+            flag = 0
+            #print(text)
+            for plan in page['data']['flights']:
+                if (plan['bingoLeastClassInfo']['price'])<=price:
+                    flag = 1
+                    text += str(plan['carrierFlightNo']) + ',' + \
+                    str(plan['depTime'][:2]) + ':' + str(plan['depTime'][2:]) + '->' + \
+                    str(plan['arrTime'][:2]) + ':' + str(plan['arrTime'][2:]) + \
+                    '.价格' + str(plan['bingoLeastClassInfo']['price']) + '. \n'
+            #print(text)
+            break
         else:
         	print ('Failed for the %d requests, please wait 10 seconds'%i)
-  	        time.sleep(10)
-
-
-    for plan in page['data']['flights']:
-        print ("%s %s %s %s"%(plan['carrierFlightNo'], \
-        	plan['depTime'], \
-        	plan['arrTime'], \
-        	plan['bingoLeastClassInfo']['price']))
+  	        time.sleep(3)
+    return flag, text
 
 
 if __name__ == "__main__":
-    jd_spider_flights()
+    depcity = '烟台'
+    arrcity = '合肥'
+    date = '2019-01-02'
+    price = 300
+    flag, text = jd_spider_flights(depcity,arrcity,date,price)
+    print(text)
