@@ -18,11 +18,10 @@ def main():
         flag, text = jd_spider_flights(depcity,arrcity,date,price)
         time_stamp = datetime.datetime.now()
         print(time_stamp.strftime('%Y.%m.%d-%H:%M:%S'))
+        print(text)
         if flag:
             ustcmail(args.sn,args.pw,args.ra,text)
-        time.sleep(1200)
-
-    print(text)
+        time.sleep(10)
 
 if __name__ == "__main__":
 

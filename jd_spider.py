@@ -29,7 +29,7 @@ def jd_spider_flights(depcity,arrcity,date,price):
         flag = 0
         page = roon_session.get(url,headers=headers, params=payload).json()
         if not page['data']['flights'] is None:
-            #print('Found!')
+            print('Requests sucess!')
             text = date + ','+depcity + '->' + arrcity + ',价格低于' + str(price) + ': \n'
             flag = 0
             #print(text)
@@ -42,10 +42,13 @@ def jd_spider_flights(depcity,arrcity,date,price):
                     ',价格' + str(plan['bingoLeastClassInfo']['price']) + \
                     ',剩余' + str(plan['bingoLeastClassInfo']['seatNum']) + '张' + '. \n'
             #print(text)
+            if flag==0:
+                text += '找不到满足价格要求的机票。'
             break
         else:
-        	print ('Failed for the %d requests, please wait 10 seconds'%i)
-  	        time.sleep(3)
+            print ('Failed for the %d requests, please wait 3 seconds'%i)
+            text = '请求失败'
+            time.sleep(3)
     return flag, text
 
 
@@ -53,6 +56,6 @@ if __name__ == "__main__":
     depcity = '烟台'
     arrcity = '合肥'
     date = '2019-01-02'
-    price = 500
+    price = 300
     flag, text = jd_spider_flights(depcity,arrcity,date,price)
     print(text)
