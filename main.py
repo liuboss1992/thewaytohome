@@ -15,13 +15,14 @@ def main():
     parser.add_argument('--pw', default='123456', type=str, help='password of your account')
     parser.add_argument('--ra', default='774054270@qq.com', type=str, help='address of the receiver')
     parser.add_argument('--dd', default='20190102', type=str, help='Departure date')
-
+    parser.add_argument('--tp', default='300', type=int, help='ticket price')
     args = parser.parse_args()
+    
     depcity = '烟台'
     arrcity = '合肥'
     dd = args.dd
     date = str(dd[0]+dd[1]+dd[2]+dd[3]+'-'+dd[4]+dd[5]+'-'+dd[6]+dd[7])
-    price = 300
+    price = args.tp
     while True:
         flag, text = jd_spider_flights(depcity,arrcity,date,price)
         time_stamp = datetime.datetime.now()
