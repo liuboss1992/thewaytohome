@@ -21,7 +21,7 @@ def main():
         print(text)
         if flag:
             ustcmail(args.sn,args.pw,args.ra,text)
-        time.sleep(10)
+        time.sleep(1200)
 
 if __name__ == "__main__":
 
