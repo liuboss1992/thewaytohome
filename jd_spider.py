@@ -29,7 +29,7 @@ def jd_spider_flights(depcity,arrcity,date,price):
         flag = 0
         page = roon_session.get(url,headers=headers, params=payload).json()
         if not page['data']['flights'] is None:
-            print('Found!')
+            #print('Found!')
             text = date + ','+depcity + '->' + arrcity + ',价格低于' + str(price) + ': \n'
             flag = 0
             #print(text)

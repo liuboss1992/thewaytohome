@@ -16,6 +16,8 @@ def main():
     price = 300
     while True:
         flag, text = jd_spider_flights(depcity,arrcity,date,price)
+        time_stamp = datetime.datetime.now()
+        print(time_stamp.strftime('%Y.%m.%d-%H:%M:%S'))
         if flag:
             ustcmail(args.sn,args.pw,args.ra,text)
         time.sleep(1200)
