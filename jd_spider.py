@@ -39,7 +39,8 @@ def jd_spider_flights(depcity,arrcity,date,price):
                     text += str(plan['carrierFlightNo']) + ',' + \
                     str(plan['depTime'][:2]) + ':' + str(plan['depTime'][2:]) + '->' + \
                     str(plan['arrTime'][:2]) + ':' + str(plan['arrTime'][2:]) + \
-                    '.价格' + str(plan['bingoLeastClassInfo']['price']) + '. \n'
+                    ',价格' + str(plan['bingoLeastClassInfo']['price']) + \
+                    ',剩余' + str(plan['bingoLeastClassInfo']['seatNum']) + '张' + '. \n'
             #print(text)
             break
         else:
@@ -52,6 +53,6 @@ if __name__ == "__main__":
     depcity = '烟台'
     arrcity = '合肥'
     date = '2019-01-02'
-    price = 300
+    price = 500
     flag, text = jd_spider_flights(depcity,arrcity,date,price)
     print(text)
